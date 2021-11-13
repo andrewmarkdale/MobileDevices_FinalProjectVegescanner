@@ -16,16 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
       ),
       home: const MyHomePage(title: 'VScanner'),
     );
@@ -34,16 +25,6 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
   final String title;
 
   @override
@@ -67,23 +48,16 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("Final Project"),
-        ),
-        body: Image.network(makeUrl()),
-
-        /* floatingActionButton: FloatingActionButton(
-          onPressed: () async {
-            barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-                "#ff0f0f", "Cancel", true, ScanMode.BARCODE);
-            print(barcodeScanRes);
-            setState(() {});
-          },
-          child: const Icon(
-            FontAwesomeIcons.barcode,
-            size: 30,
-            color: Colors.white,
-          )), */
+        appBar: PreferredSize(
+            preferredSize: MediaQuery.of(context).size * 1 / 2,
+            child: AppBar(
+              title: const Text("Final Project"),
+              flexibleSpace: ClipRRect(
+                borderRadius:
+                    BorderRadius.only(bottomLeft: Radius.circular(10.0)),
+              ),
+            )),
+        body: Text("Hello!"), //Image.network(makeUrl()),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: Container(
             height: 75,
@@ -103,8 +77,8 @@ class _MyHomePageState extends State<MyHomePage> {
               elevation: 5.0,
             )),
         bottomNavigationBar: BottomAppBar(
-          shape: CircularNotchedRectangle(),
-          color: Colors.green[700],
+          shape: const CircularNotchedRectangle(),
+          color: Colors.green[500],
           child: Container(
             height: MediaQuery.of(context).size.height / 10,
             child: Row(
@@ -113,15 +87,15 @@ class _MyHomePageState extends State<MyHomePage> {
               children: <Widget>[
                 IconButton(
                     onPressed: () async {
-                      Position position = await Geolocator.getCurrentPosition(
-                          desiredAccuracy: LocationAccuracy.high);
+                      Position position = await _determinePosition();
                       lat = position.latitude.toString();
                       print(lat);
                       long = position.longitude.toString();
                       print(long);
                       setState(() {});
                     },
-                    icon: Icon(FontAwesomeIcons.listUl, color: Colors.white)),
+                    icon: const Icon(FontAwesomeIcons.listUl,
+                        color: Colors.white)),
                 const IconButton(
                   icon: Icon(null),
                   onPressed: null,
@@ -130,92 +104,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   onPressed: () {
                     print("hello!");
                   },
-                  icon: Icon(FontAwesomeIcons.info, color: Colors.white),
+                  icon: const Icon(FontAwesomeIcons.info, color: Colors.white),
                 )
               ],
             ),
           ),
-        )
-
-        /* SizedBox(
-          height: MediaQuery.of(context).size.height / 10,
-          child: BottomNavigationBar(
-            showSelectedLabels: false,
-            showUnselectedLabels: false,
-            backgroundColor: Colors.green[700],
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    FontAwesomeIcons.listUl,
-                    size: 20,
-                    color: Colors.black,
-                  ),
-                  label: ""),
-              BottomNavigationBarItem(
-                  backgroundColor: Colors.grey,
-                  icon: Icon(
-                    FontAwesomeIcons.barcode,
-                    size: 30,
-                    color: Colors.white,
-                  ),
-                  label: ""),
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    FontAwesomeIcons.info,
-                    size: 20,
-                    color: Colors.black,
-                  ),
-                  label: "")
-            ],
-          )), */
-        /* bottomNavigationBar: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          Align(
-            alignment: Alignment.bottomLeft,
-            child: TextButton(
-              onPressed: () {},
-              child: const Icon(
-                FontAwesomeIcons.listUl,
-                size: 20,
-                color: Colors.black,
-              ),
-            ),
-          ),
-          Align(
-              alignment: Alignment.bottomCenter,
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(100, 40),
-                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 2),
-                      primary: Colors.grey[800],
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      )),
-                  onPressed: () async {
-                    barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-                        "#ff0f0f", "Cancel", true, ScanMode.BARCODE);
-                    print(barcodeScanRes);
-                    setState(() {});
-                  },
-                  child: const Icon(
-                    FontAwesomeIcons.barcode,
-                    size: 30,
-                    color: Colors.white,
-                  ))),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: TextButton(
-                onPressed: () {},
-                child: const Icon(
-                  FontAwesomeIcons.info,
-                  size: 20,
-                  color: Colors.black,
-                )),
-          )
-        ],
-      ),*/
-        );
+        ));
   }
 }
 
@@ -257,5 +151,6 @@ Future<Position> _determinePosition() async {
 
   // When we reach here, permissions are granted and we can
   // continue accessing the position of the device.
-  return await Geolocator.getCurrentPosition();
+  return await Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.high);
 }
