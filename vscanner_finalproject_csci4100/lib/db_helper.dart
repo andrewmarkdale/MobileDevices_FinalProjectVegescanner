@@ -6,9 +6,6 @@ import 'package:path/path.dart';
 Andrew Mark Dale
 CSCI4100U
 Mobile Development
-Lab 5/6
-SQFLITE Grades
-
 
 Basic DBHelper based on the example given in class
 
@@ -29,28 +26,29 @@ class DBHelper {
         await openDatabase(join(await getDatabasesPath(), 'mydb.db'),
             onCreate: (Database db, int version) {
       db.execute(
-          "CREATE TABLE Products(id INTEGER PRIMARY KEY, sid TEXT, grade TEXT)");
+          "CREATE TABLE Products(id INTEGER PRIMARY KEY, name TEXT, barcode TEXT, "
+          "vegan TEXT, vegetarian TEXT, imgb64 TEXT, notes TEXT)");
     }, version: 1);
     return database;
   }
 
-  Future<List<Map<String, dynamic>>> getAllGrades() async {
+  Future<List<Map<String, dynamic>>> getAllProducts() async {
     Database db = await database;
     return await db.query("Products");
   }
 
-  Future<int> insertGrade(Map<String, dynamic> row) async {
+  Future<int> insertProduct(Map<String, dynamic> row) async {
     Database db = await database;
     return db.insert("Products", row);
   }
 
-  Future<int> updateGrade(Map<String, dynamic> row) async {
+  Future<int> updateProduct(Map<String, dynamic> row) async {
     Database db = await database;
-    return db.update("Products", row, where: "sid=?", whereArgs: [row['sid']]);
+    return db.update("Products", row, where: "barcode=?", whereArgs: [row['barcode']]);
   }
 
-  Future<int> deleteGrade(String sid) async {
+  Future<int> deleteProduct(String barcode) async {
     Database db = await database;
-    return await db.delete("Products", where: "sid=?", whereArgs: [sid]);
+    return await db.delete("Products", where: "barcode=?", whereArgs: [barcode]);
   }
 }
