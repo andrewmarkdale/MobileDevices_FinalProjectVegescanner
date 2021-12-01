@@ -303,6 +303,8 @@ class itempage extends StatelessWidget {
               //SizedBox(height: 100,),
             ],
           ),
+
+          /*
           Container(
               // margin:EdgeInsets.all(20),
 
@@ -322,6 +324,22 @@ class itempage extends StatelessWidget {
                   'Notes',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
+
+
+                */
+
+
+Padding(padding:EdgeInsets.all(20),child: 
+Column(crossAxisAlignment: CrossAxisAlignment.start,
+  
+  
+  children: [Text('Barcode: ${barcode}',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),),
+  SizedBox(height:20),
+  Text("Notes",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),)
+  ],)
+),
+
+
                Padding(padding:EdgeInsets.fromLTRB(15, 1,15, 1),child:
  Card(
      elevation:6,
@@ -357,18 +375,76 @@ IconButton(onPressed:(){},icon:Icon(FontAwesomeIcons.edit))
                
                ),
               
+ 
+
+    
 
 
-
-              )
+            
 
 
 
 
               
-        ],
-      ),
+      
+    
+
+    floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: Container(
+            height: 75,
+            width: 75,
+            child: FloatingActionButton(
+              backgroundColor: Colors.grey[700],
+              onPressed: ()  {
+              
+            
+            
+              },
+              child: const Icon(
+                FontAwesomeIcons.barcode,
+                size: 35,
+              ),
+              elevation: 5.0,
+            )),
+        bottomNavigationBar: BottomAppBar(
+          shape: const CircularNotchedRectangle(),
+          color: Colors.green[500],
+          child: Container(
+            height: MediaQuery.of(context).size.height / 10,
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                IconButton(
+                    onPressed: () {
+                     Navigator.pop(context);
+                     
+                     
+                    },
+                    icon:
+                    
+                     Icon(FontAwesomeIcons.listUl,
+                        color: Colors.white)),
+                 IconButton(
+                  icon: Icon(null),
+                  onPressed: (){
+              
+                  },
+                ),
+                IconButton(
+                  onPressed: () {
+                
+                  },
+                  icon: const Icon(FontAwesomeIcons.info, color: Colors.white),
+                )
+              ],
+            ),
+          )
+        )
+
+
+
+
     );
   }
 }
-
