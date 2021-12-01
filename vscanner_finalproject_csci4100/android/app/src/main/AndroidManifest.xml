@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.vscanner_finalproject_csci4100">
    <application
-        android:label="vscanner_finalproject_csci4100"
-        android:icon="@mipmap/ic_launcher">
+        android:label="VegeScanner"
+        android:icon="@mipmap/vegescanner_icon2">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

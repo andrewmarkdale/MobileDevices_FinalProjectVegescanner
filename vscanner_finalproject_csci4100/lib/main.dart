@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:geolocator/geolocator.dart';
+import 'listproducts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -45,23 +46,44 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   String barcodeScanRes = '';
+  bool searchSwitch = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-            preferredSize: MediaQuery.of(context).size * 1 / 2,
-            child: AppBar(
-              title: const Text("Final Project"),
-              flexibleSpace: ClipRRect(
-                borderRadius:
-                    BorderRadius.only(bottomLeft: Radius.circular(10.0)),
+        extendBody: true,
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          centerTitle: true,
+          title: Image.asset(
+            'images/vegescannerlong.png',
+            fit: BoxFit.contain,
+            height: 32,
+          ),
+          actions: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(right: 20.0),
+              child: GestureDetector(
+                onTap: () {
+                  setState(
+                    () {
+                      searchSwitch ? searchSwitch = false : searchSwitch = true;
+                    },
+                  );
+                },
+                child: searchSwitch
+                    ? const Icon(FontAwesomeIcons.times)
+                    : const Icon(FontAwesomeIcons.search),
               ),
-            )),
-        body: Text("Hello!"), //Image.network(makeUrl()),
+            )
+          ],
+        ),
+        body: productbuild(
+          isSearching: searchSwitch,
+        ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: Container(
-            height: 75,
-            width: 75,
+            height: 70,
+            width: 70,
             child: FloatingActionButton(
               backgroundColor: Colors.grey[700],
               onPressed: () async {
@@ -80,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
           shape: const CircularNotchedRectangle(),
           color: Colors.green[500],
           child: Container(
-            height: MediaQuery.of(context).size.height / 10,
+            height: MediaQuery.of(context).size.height / 12,
             child: Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
