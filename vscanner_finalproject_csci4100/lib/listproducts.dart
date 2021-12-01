@@ -322,13 +322,53 @@ class itempage extends StatelessWidget {
                   'Notes',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
-                const TextField(
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(borderSide: BorderSide()),
-                        contentPadding: EdgeInsets.symmetric(horizontal: 10)))
-              ]))
+               Padding(padding:EdgeInsets.fromLTRB(15, 1,15, 1),child:
+ Card(
+     elevation:6,
+     child: ClipPath(
+       child: Container(
+         child:Text("Enter your notes..."),
+      
+              height: 140,
+              width: 500,
+              decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.8),
+               boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: Offset(0, 3), // changes position of shadow
+            ),
+          ],
+            ),
+            ),
+       clipper: ShapeBorderClipper(shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(3))),
+               ),
+              
+              
+    )
+),
+Padding(padding: EdgeInsets.only(left:320),child:
+IconButton(onPressed:(){},icon:Icon(FontAwesomeIcons.edit))
+)
+               ]
+               
+               ),
+              
+
+
+
+              )
+
+
+
+
+              
         ],
       ),
     );
   }
 }
+
