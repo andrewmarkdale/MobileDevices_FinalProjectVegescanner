@@ -54,6 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           centerTitle: true,
+          elevation: searchSwitch ? 0.0 : 4.0,
           title: Image.asset(
             'images/vegescannerlong.png',
             fit: BoxFit.contain,
