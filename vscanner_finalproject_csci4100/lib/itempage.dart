@@ -112,9 +112,27 @@ Row(children: [
     // Map<String, dynamic> row = {};
     // DBHelper.dbHelper.updateProduct(row);
   },icon:Icon(FontAwesomeIcons.edit)),
-  IconButton(onPressed:(){
-    DBHelper.dbHelper.deleteProduct(widget.barcode);
-    Navigator.pop(context);
+  IconButton(onPressed:() async{
+    await showDialog(context: context, 
+    builder: (BuildContext context){
+      return AlertDialog(
+        title: Text("Delete Product?"),
+        content: Text("This action cannot be undone"),
+        actions: [
+          TextButton(onPressed: (){
+            DBHelper.dbHelper.deleteProduct(widget.barcode);
+            Navigator.pop(context);
+            Navigator.pop(context);
+          }, 
+          child: Text("Delete")),
+
+          TextButton(onPressed: (){
+            Navigator.pop(context);
+          }, 
+          child: Text("Cancel"))
+        ],
+      );
+    });
   },icon:Icon(FontAwesomeIcons.trashAlt))
 ],)
 ),
@@ -182,5 +200,21 @@ Row(children: [
 
 
     );
+  }
+
+  Future<void> _showAlertDialog(BuildContext context) async{
+    return showDialog(context: context, 
+    builder: (BuildContext context){
+      return AlertDialog(
+        title: Text("Delete product?"),
+        content: Text("Delete?"),
+        actions: [
+          TextButton(onPressed: (){}, 
+          child: Text("Yes")),
+          TextButton(onPressed: (){}, 
+          child: Text("No"))
+        ],
+      );
+    });
   }
 }
