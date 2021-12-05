@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:vscanner_finalproject_csci4100/newitempage.dart';
 import 'listproducts.dart';
 import 'product.dart';
 import 'package:http/http.dart' as http;
@@ -194,13 +195,23 @@ class _BottomAppBarWidgetState extends State<BottomAppBarWidget> {
                   Position position = await _determinePosition();
                   final image = await staticmaptoBase64(
                       LatLng(position.latitude, position.longitude));
-                  int result = await DBHelper.dbHelper.insertProduct({
-                    "name": product.productName,
-                    "barcode": product.barcode,
-                    "vegan": product.vegan,
-                    "vegetarian": product.vegetarian,
-                    "imgb64": image,
-                  });
+                  //int result = await DBHelper.dbHelper.insertProduct({
+                  //  "name": product.productName,
+                  //  "barcode": product.barcode,
+                  //  "vegan": product.vegan,
+                  //  "vegetarian": product.vegetarian,
+                  //  "imgb64": image,
+                  //});
+                  product.imgB64 = image;
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => newitempage(
+                              title: product.productName,
+                              image1: veganCheck(product),
+                              image2: vegetarianCheck(product),
+                              mapImage: product.imgB64 ?? "",
+                              barcode: product.barcode)));
                 }
                 if (product == "Error") {
                   return showDialog(
