@@ -39,7 +39,12 @@ class _itempagestate extends State<itempage> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-            Padding(padding: EdgeInsets.fromLTRB(0, 40, 0, 0)),
+              Padding(child: IconButton(
+                onPressed: () async {_showAlertDialog(context);},
+                icon: Icon(FontAwesomeIcons.trashAlt)),
+                padding: EdgeInsets.only(left: 340,top:10),),
+
+            Padding(padding: EdgeInsets.fromLTRB(0, 10, 0, 0)),
             Center(
                 child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
@@ -91,11 +96,18 @@ class _itempagestate extends State<itempage> {
                           fontWeight: FontWeight.bold, fontSize: 16),
                     ),
                     SizedBox(height: 20),
-                    const Text(
+                    Row(children: [const Text(
                       "Notes",
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                    )
+                    ),
+                    IconButton(
+                    onPressed: () {
+                      // Map<String, dynamic> row = {};
+                      // DBHelper.dbHelper.updateProduct(row);
+                    },
+                    icon: Icon(FontAwesomeIcons.edit))
+                    ])
                   ],
                 )),
             Padding(
@@ -126,59 +138,33 @@ class _itempagestate extends State<itempage> {
                             borderRadius: BorderRadius.circular(3))),
                   ),
                 )),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                IconButton(
-                    onPressed: () {
-                      // Map<String, dynamic> row = {};
-                      // DBHelper.dbHelper.updateProduct(row);
-                    },
-                    icon: Icon(FontAwesomeIcons.edit)),
-                IconButton(
-                    onPressed: () async {
-                      await showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: Text("Delete Product?"),
-                              content: Text("This action cannot be undone"),
-                              actions: [
-                                TextButton(
-                                    onPressed: () {
-                                      DBHelper.dbHelper
-                                          .deleteProduct(widget.barcode);
-                                      Navigator.pop(context);
-                                      Navigator.pop(context);
-                                    },
-                                    child: Text("Delete")),
-                                TextButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: Text("Cancel"))
-                              ],
-                            );
-                          });
-                    },
-                    icon: Icon(FontAwesomeIcons.trashAlt))
-              ],
-            ),
+
           ])),
       bottomNavigationBar: const BottomAppBarWidget(),
     );
   }
 
   Future<void> _showAlertDialog(BuildContext context) async {
-    return showDialog(
+    return await showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text("Delete product?"),
-            content: Text("Delete?"),
+            content: Text("This action cannot be undone"),
             actions: [
-              TextButton(onPressed: () {}, child: Text("Yes")),
-              TextButton(onPressed: () {}, child: Text("No"))
+              TextButton(
+                  onPressed: () {
+                    DBHelper.dbHelper
+                        .deleteProduct(widget.barcode);
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                  },
+                  child: Text("Delete")),
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text("Cancel"))
             ],
           );
         });
