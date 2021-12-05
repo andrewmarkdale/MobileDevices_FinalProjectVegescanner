@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vscanner_finalproject_csci4100/bottomappbar.dart';
 import 'listproducts.dart';
+import 'bottomappbar.dart';
 
 class infopage extends StatelessWidget{
   const infopage({Key? key}) : super(key: key);
@@ -109,7 +110,7 @@ Row(children: [
   
   
   ),
-
+/*
 
    floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
    
@@ -174,7 +175,8 @@ Row(children: [
             ),
           ),
         )
-      
+        */
+      bottomNavigationBar: BottomAppBarWidget()
 
 
         );
