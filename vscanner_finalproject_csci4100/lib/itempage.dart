@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vscanner_finalproject_csci4100/db_helper.dart';
 import 'dart:convert';
 import 'package:vscanner_finalproject_csci4100/bottomappbar.dart';
+import 'package:vscanner_finalproject_csci4100/edititempage.dart';
 
 class itempage extends StatefulWidget {
   const itempage(
@@ -103,8 +104,15 @@ class _itempagestate extends State<itempage> {
                     ),
                     IconButton(
                     onPressed: () {
-                      // Map<String, dynamic> row = {};
-                      // DBHelper.dbHelper.updateProduct(row);
+                      Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => edititempage(
+                              title: widget.title,
+                              image1: widget.image1,
+                              image2: widget.image2,
+                              mapImage: widget.mapImage,
+                              barcode: widget.barcode)));
                     },
                     icon: Icon(FontAwesomeIcons.edit))
                     ])
