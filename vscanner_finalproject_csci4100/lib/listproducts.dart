@@ -156,15 +156,18 @@ class _productbuildstate extends State<productbuild> {
                         ],
                       ),
                       onTap: () {
+                        print(products[index].notes);
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => itempage(
-                                    title: products[index].productName,
-                                    image1: veganCheck(products[index]),
-                                    image2: vegetarianCheck(products[index]),
-                                    mapImage: products[index].imgB64 ?? "",
-                                    barcode: products[index].barcode)));
+                                      title: products[index].productName,
+                                      image1: veganCheck(products[index]),
+                                      image2: vegetarianCheck(products[index]),
+                                      mapImage: products[index].imgB64 ?? "",
+                                      barcode: products[index].barcode,
+                                      notes: products[index].notes ?? "",
+                                    )));
                       },
                     ),
                   );
@@ -172,25 +175,6 @@ class _productbuildstate extends State<productbuild> {
           )
         ],
       ),
-      /* floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Container(
-          height: 80,
-          width: 80,
-          child: FloatingActionButton(
-            backgroundColor: Colors.grey[700],
-            onPressed: () async {
-              var barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-                  "#228B22", "Cancel", true, ScanMode.BARCODE);
-              getProductInformation(barcodeScanRes);
-
-              setState(() {});
-            },
-            child: const Icon(
-              FontAwesomeIcons.barcode,
-              size: 35,
-            ),
-            elevation: 5.0,
-          )), */
       bottomNavigationBar: const BottomAppBarWidget(),
     );
   }
@@ -224,18 +208,21 @@ class _productbuildstate extends State<productbuild> {
         await DBHelper.dbHelper.getAllProducts();
     setState(() {
       record.forEach((element) {
+        print(element);
         products.add(Product(
             barcode: element["barcode"],
             productName: element["name"],
             vegan: element["vegan"],
             vegetarian: element["vegetarian"],
-            imgB64: element["imgb64"]));
+            imgB64: element["imgb64"],
+            notes: element["notes"]));
         productCopy.add(Product(
             barcode: element["barcode"],
             productName: element["name"],
             vegan: element["vegan"],
             vegetarian: element["vegetarian"],
-            imgB64: element["imgb64"]));
+            imgB64: element["imgb64"],
+            notes: element["notes"]));
       });
     });
   }

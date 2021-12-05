@@ -114,6 +114,7 @@ class _BottomAppBarWidgetState extends State<BottomAppBarWidget> {
                             "vegetarian": product.vegetarian,
                             "imgb64": image,
                           });
+                          print(result);
                         }
                         if (product == "Error") {
                           return showDialog(

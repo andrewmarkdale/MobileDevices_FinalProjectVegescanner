@@ -13,8 +13,10 @@ class itempage extends StatefulWidget {
       required this.image1,
       required this.image2,
       required this.mapImage,
-      required this.barcode})
+      required this.barcode,
+      required this.notes})
       : super(key: key);
+  final String notes;
   final String title;
   final String image1;
   final String image2;
@@ -102,7 +104,9 @@ class _itempagestate extends State<itempage> {
                   elevation: 6,
                   child: ClipPath(
                     child: Container(
-                      child: Text("Enter your notes..."),
+                      child: Text(widget.notes == ""
+                          ? 'Enter your notes'
+                          : widget.notes),
                       height: 140,
                       width: 500,
                       decoration: BoxDecoration(
