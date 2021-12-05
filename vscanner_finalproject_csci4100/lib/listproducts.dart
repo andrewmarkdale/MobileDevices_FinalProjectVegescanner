@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
-//import 'package:flutter_map/plugin_api.dart';
-//import 'package:latlong2/latlong.dart';
-//import 'package:quiver/collection.dart';
 import 'package:vscanner_finalproject_csci4100/product.dart';
 import 'package:vscanner_finalproject_csci4100/itempage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:vscanner_finalproject_csci4100/db_helper.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'dart:convert';
+
+import 'bottomappbar.dart';
 
 class productbuild extends StatefulWidget {
-  bool isSearching;
-
-  productbuild({
+  const productbuild({
     Key? key,
-    this.isSearching = false,
   }) : super(key: key);
 
   @override
@@ -21,137 +20,84 @@ class productbuild extends StatefulWidget {
 class _productbuildstate extends State<productbuild> {
   _productbuildstate({Key? key});
 
-  // List<String>product = ["Coca cola","pepsi","bean and cheese burrito"];
-  List<String> images = [
-    'https://cdn.discordapp.com/attachments/891062649742299236/915054136964304947/vegan_icon.png',
-  ];
-  List<items> _items = [
-    items(
-        'Coca cola',
-        'https://cdn.discordapp.com/attachments/891062649742299236/915054130173718528/vegan_icon_maybe.png',
-        'https://cdn.discordapp.com/attachments/891062649742299236/915054244447539240/vegetarian_icon_maybe.png',
-        '85345689894'),
-    items(
-        'Impossible burgers',
-        'https://cdn.discordapp.com/attachments/891062649742299236/915054136964304947/vegan_icon.png',
-        'https://cdn.discordapp.com/attachments/891062649742299236/915054249040298004/vegetarian_icon.png',
-        '85269004583'),
-    items(
-        'Bean and cheese burrito',
-        'https://cdn.discordapp.com/attachments/891062649742299236/915054134309306398/vegan_icongreyed.png',
-        'https://cdn.discordapp.com/attachments/891062649742299236/915054247014436924/vegetarian_icongreyed.png',
-        '96713456795'),
-    items(
-        'Bean and cheese burrito',
-        'https://cdn.discordapp.com/attachments/891062649742299236/915054134309306398/vegan_icongreyed.png',
-        'https://cdn.discordapp.com/attachments/891062649742299236/915054247014436924/vegetarian_icongreyed.png',
-        '96713456795'),
-    items(
-        'Bean and cheese burrito',
-        'https://cdn.discordapp.com/attachments/891062649742299236/915054134309306398/vegan_icongreyed.png',
-        'https://cdn.discordapp.com/attachments/891062649742299236/915054247014436924/vegetarian_icongreyed.png',
-        '96713456795'),
-    items(
-        'Bean and cheese burrito',
-        'https://cdn.discordapp.com/attachments/891062649742299236/915054134309306398/vegan_icongreyed.png',
-        'https://cdn.discordapp.com/attachments/891062649742299236/915054247014436924/vegetarian_icongreyed.png',
-        '96713456795')
-  ];
-  List<items> _itemsCopy = [
-    items(
-        'Coca cola',
-        'https://cdn.discordapp.com/attachments/891062649742299236/915054130173718528/vegan_icon_maybe.png',
-        'https://cdn.discordapp.com/attachments/891062649742299236/915054244447539240/vegetarian_icon_maybe.png',
-        '85345689894'),
-    items(
-        'Impossible burgers',
-        'https://cdn.discordapp.com/attachments/891062649742299236/915054136964304947/vegan_icon.png',
-        'https://cdn.discordapp.com/attachments/891062649742299236/915054249040298004/vegetarian_icon.png',
-        '85269004583'),
-    items(
-        'Bean and cheese burrito',
-        'https://cdn.discordapp.com/attachments/891062649742299236/915054134309306398/vegan_icongreyed.png',
-        'https://cdn.discordapp.com/attachments/891062649742299236/915054247014436924/vegetarian_icongreyed.png',
-        '96713456795'),
-    items(
-        'Bean and cheese burrito',
-        'https://cdn.discordapp.com/attachments/891062649742299236/915054134309306398/vegan_icongreyed.png',
-        'https://cdn.discordapp.com/attachments/891062649742299236/915054247014436924/vegetarian_icongreyed.png',
-        '96713456795'),
-    items(
-        'Bean and cheese burrito',
-        'https://cdn.discordapp.com/attachments/891062649742299236/915054134309306398/vegan_icongreyed.png',
-        'https://cdn.discordapp.com/attachments/891062649742299236/915054247014436924/vegetarian_icongreyed.png',
-        '96713456795'),
-    items(
-        'Bean and cheese burrito',
-        'https://cdn.discordapp.com/attachments/891062649742299236/915054134309306398/vegan_icongreyed.png',
-        'https://cdn.discordapp.com/attachments/891062649742299236/915054247014436924/vegetarian_icongreyed.png',
-        '96713456795')
-  ];
+  @override
+  void initState() {
+    super.initState();
+    setState(() {});
+    getAllProducts();
+  }
 
+  List<Product> products = [];
+  List<Product> productCopy = [];
   TextEditingController searchController = TextEditingController();
+  bool searchSwitch = false;
   @override
   Widget build(BuildContext context) {
-    if (widget.isSearching == false) {
+    if (searchSwitch == false) {
       setState(() {
-        _items.clear();
-        _items.addAll(_itemsCopy);
+        products.clear();
+        products.addAll(productCopy);
+        searchController.text = "";
       });
     }
     return Scaffold(
       extendBody: true,
       resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        centerTitle: searchSwitch ? false : true,
+        title: searchSwitch
+            ? TextField(
+                decoration: InputDecoration(
+                    isDense: true,
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                        borderSide: const BorderSide(),
+                        borderRadius: BorderRadius.circular(10)),
+                    prefixIcon: const Icon(
+                      FontAwesomeIcons.search,
+                      size: 20,
+                    ),
+                    hintText: "Search",
+                    contentPadding: const EdgeInsets.only(left: 10)),
+                onChanged: (value) {
+                  print(products);
+                  filterSearchResults(value);
+                },
+                controller: searchController,
+              )
+            : Image.asset(
+                'images/vegescannerlong.png',
+                fit: BoxFit.contain,
+                height: 32,
+              ),
+        actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(right: 20.0),
+            child: GestureDetector(
+              onTap: () {
+                setState(
+                  () {
+                    searchSwitch ? searchSwitch = false : searchSwitch = true;
+                  },
+                );
+              },
+              child: searchSwitch
+                  ? const Icon(FontAwesomeIcons.times)
+                  : const Icon(FontAwesomeIcons.search),
+            ),
+          )
+        ],
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          widget.isSearching
-              ? Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.green,
-                    border: Border(
-                        bottom: BorderSide(
-                      width: 1,
-                      color: Colors.green,
-                    )),
-                  ),
-                  child: SizedBox(
-                    width: 400,
-                    height: 80,
-                    child: Padding(
-                        padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: TextField(
-                            decoration: InputDecoration(
-                                isDense: true,
-                                filled: true,
-                                fillColor: Colors.white,
-                                border: OutlineInputBorder(
-                                    borderSide: const BorderSide(),
-                                    borderRadius: BorderRadius.circular(10)),
-                                suffixIcon: const Icon(
-                                  FontAwesomeIcons.search,
-                                  size: 20,
-                                ),
-                                hintText: 'Search',
-                                contentPadding:
-                                    const EdgeInsets.only(left: 10)),
-                            onChanged: (value) {
-                              filterSearchResults(value);
-                            },
-                            controller: searchController,
-                          ),
-                        )),
-                  ))
-              : Container(),
           Expanded(
             child: ListView.builder(
                 padding: EdgeInsets.only(
                     bottom: MediaQuery.of(context).size.height / 7),
-                itemCount: _items.length,
+                itemCount: products.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
                     width: 100,
@@ -168,32 +114,42 @@ class _productbuildstate extends State<productbuild> {
                         ]),
                     margin: const EdgeInsets.fromLTRB(10.0, 8.0, 10.0, 8.0),
                     child: ListTile(
+                      contentPadding: EdgeInsets.only(left: 10),
+                      minVerticalPadding: 10,
                       leading: ConstrainedBox(
-                        constraints: const BoxConstraints(
-                          minHeight: 90,
-                          minWidth: 100,
-                          maxHeight: 90,
-                          maxWidth: 100,
-                        ),
-                        child: Image.asset('images/mapimage.jpg'),
-                      ),
+                          constraints: const BoxConstraints(
+                            minHeight: 90,
+                            minWidth: 80,
+                            maxHeight: 90,
+                            maxWidth: 80,
+                          ),
+                          child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: products[index].imgB64 == null
+                                  ? Image.asset(
+                                      'images/no_image.jpg',
+                                      fit: BoxFit.fill,
+                                    )
+                                  : Image.memory(
+                                      base64Decode(products[index].imgB64),
+                                      fit: BoxFit.fill))),
                       title: Text(
-                        _items[index].product,
+                        products[index].productName,
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                       subtitle: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Image(
-                            image: NetworkImage(_items[index].img1),
+                          Image.asset(
+                            veganCheck(products[index]),
                             width: 30,
                             height: 50,
                           ),
                           const SizedBox(
                             width: 20,
                           ),
-                          Image(
-                            image: NetworkImage(_items[index].img2),
+                          Image.asset(
+                            vegetarianCheck(products[index]),
                             width: 30,
                             height: 50,
                           ),
@@ -204,10 +160,11 @@ class _productbuildstate extends State<productbuild> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => itempage(
-                                    title: _items[index].product,
-                                    image1: _items[index].img1,
-                                    image2: _items[index].img2,
-                                    barcode: _items[index].barcode)));
+                                    title: products[index].productName,
+                                    image1: veganCheck(products[index]),
+                                    image2: vegetarianCheck(products[index]),
+                                    mapImage: products[index].imgB64 ?? "",
+                                    barcode: products[index].barcode)));
                       },
                     ),
                   );
@@ -215,39 +172,91 @@ class _productbuildstate extends State<productbuild> {
           )
         ],
       ),
+      /* floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: Container(
+          height: 80,
+          width: 80,
+          child: FloatingActionButton(
+            backgroundColor: Colors.grey[700],
+            onPressed: () async {
+              var barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+                  "#228B22", "Cancel", true, ScanMode.BARCODE);
+              getProductInformation(barcodeScanRes);
+
+              setState(() {});
+            },
+            child: const Icon(
+              FontAwesomeIcons.barcode,
+              size: 35,
+            ),
+            elevation: 5.0,
+          )), */
+      bottomNavigationBar: const BottomAppBarWidget(),
     );
   }
 
   void filterSearchResults(String query) {
-    List<items> searchList = <items>[];
-    List<items> copyItems = _items;
-    searchList.addAll(_items);
+    List<Product> searchList = <Product>[];
+    List<Product> copyItems = products;
+    searchList.addAll(products);
     if (query.isNotEmpty) {
-      List<items> dummyListItems = <items>[];
+      List<Product> dummyListItems = <Product>[];
       searchList.forEach((item) {
-        if (item.product.toLowerCase().contains(query.toLowerCase())) {
+        if (item.productName.toLowerCase().contains(query.toLowerCase())) {
           dummyListItems.add(item);
         }
       });
       setState(() {
-        _items.clear();
-        _items.addAll(dummyListItems);
+        products.clear();
+        products.addAll(dummyListItems);
       });
       return;
     } else {
       setState(() {
-        _items.clear();
-        _items.addAll(_itemsCopy);
+        products.clear();
+        products.addAll(productCopy);
       });
     }
   }
-}
-class items {
-  String product = "";
-  String img1 = "";
-  String img2 = "";
-  String barcode = "";
-  items(this.product, this.img1, this.img2, this.barcode);
+
+  getAllProducts() async {
+    List<Map<String, dynamic>> record =
+        await DBHelper.dbHelper.getAllProducts();
+    setState(() {
+      record.forEach((element) {
+        products.add(Product(
+            barcode: element["barcode"],
+            productName: element["name"],
+            vegan: element["vegan"],
+            vegetarian: element["vegetarian"],
+            imgB64: element["imgb64"]));
+        productCopy.add(Product(
+            barcode: element["barcode"],
+            productName: element["name"],
+            vegan: element["vegan"],
+            vegetarian: element["vegetarian"],
+            imgB64: element["imgb64"]));
+      });
+    });
+  }
 }
 
+String veganCheck(Product product) {
+  if (product.vegan == "yes") {
+    return "images/vegan_icon_true.png";
+  } else if (product.vegan == "maybe") {
+    return "images/vegan_icon_maybe.png";
+  } else {
+    return "images/vegan_icon_false.png";
+  }
+}
 
+String vegetarianCheck(Product product) {
+  if (product.vegetarian == "yes") {
+    return "images/vegetarian_icon_true.png";
+  } else if (product.vegetarian == "maybe-vegetarian") {
+    return "images/vegetarian_icon_maybe.png";
+  } else {
+    return "images/vegetarian_icon_false.png";
+  }
+}

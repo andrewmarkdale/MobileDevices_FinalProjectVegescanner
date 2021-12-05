@@ -2,7 +2,7 @@
     package="com.example.vscanner_finalproject_csci4100">
    <application
         android:label="VegeScanner"
-        android:icon="@mipmap/vegescanner_icon2">
+        android:icon="@mipmap/vegescanner">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
@@ -38,6 +38,9 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    
 </manifest>

@@ -1,8 +1,8 @@
 class Product {
-  final String productName;
-  final String barcode;
-  final String vegan;
-  final String vegetarian;
+  String productName;
+  String barcode;
+  String vegan;
+  String vegetarian;
   var imgB64;
   var notes;
   Product({
