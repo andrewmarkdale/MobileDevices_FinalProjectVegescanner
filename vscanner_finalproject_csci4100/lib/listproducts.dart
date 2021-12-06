@@ -136,6 +136,9 @@ class _productbuildstate extends State<productbuild> {
                       title: Text(
                         products[index].productName,
                         style: const TextStyle(fontWeight: FontWeight.bold),
+                        overflow: TextOverflow.clip,
+                        maxLines: 1,
+                        softWrap: true,
                       ),
                       subtitle: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
