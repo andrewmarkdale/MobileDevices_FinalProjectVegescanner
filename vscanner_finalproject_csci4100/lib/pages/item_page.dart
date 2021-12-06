@@ -164,7 +164,8 @@ class _itempagestate extends State<itempage> {
       bottomNavigationBar: const BottomAppBarWidget(),
     );
   }
-
+  
+  //dialog asking if item should be deleted
   Future<void> _showAlertDialog(BuildContext context) async {
     return await showDialog(
         context: context,

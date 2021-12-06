@@ -136,7 +136,7 @@ class _edititempagestate extends State<edititempage> {
                             borderRadius: BorderRadius.circular(10)),
                         width: MediaQuery.of(context).size.width * 0.5,
                         child: TextButton(
-                            onPressed: () async {
+                            onPressed: () async {//update notes in database
                               int result =
                                   await DBHelper.dbHelper.updateProduct({
                                 "name": widget.title,
@@ -169,6 +169,7 @@ class _edititempagestate extends State<edititempage> {
         ));
   }
 
+  //dialog asking if item should be deleted
   Future<void> _showAlertDialog(BuildContext context) async {
     return await showDialog(
         context: context,
