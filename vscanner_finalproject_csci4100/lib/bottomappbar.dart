@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:vscanner_finalproject_csci4100/main.dart';
 import 'package:vscanner_finalproject_csci4100/newitempage.dart';
+import 'information.dart';
 import 'listproducts.dart';
 import 'localnotifcation.dart';
 import 'product.dart';
@@ -108,13 +109,7 @@ class _BottomAppBarWidgetState extends State<BottomAppBarWidget> {
                           Position position = await _determinePosition();
                           final image = await staticmaptoBase64(
                               LatLng(position.latitude, position.longitude));
-                          //int result = await DBHelper.dbHelper.insertProduct({
-                          //  "name": product.productName,
-                          //  "barcode": product.barcode,
-                          //  "vegan": product.vegan,
-                          //  "vegetarian": product.vegetarian,
-                          //  "imgb64": image,
-                          //});
+
                           product.imgB64 = image;
                           Navigator.push(
                               context,
@@ -169,7 +164,11 @@ class _BottomAppBarWidgetState extends State<BottomAppBarWidget> {
                       },
                     ))),
             IconButton(
-              onPressed: () async {},
+              onPressed: () async {
+                Navigator.pop(context);
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const infopage()));
+              },
               icon: const Icon(FontAwesomeIcons.info, color: Colors.white),
             )
           ],
