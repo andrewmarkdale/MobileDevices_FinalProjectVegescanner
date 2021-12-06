@@ -37,26 +37,32 @@ class _edititempagestate extends State<edititempage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                const Padding(padding: EdgeInsets.only(top: 10)),
-                Row(children:[Padding(padding: EdgeInsets.only(left:300)),
-                  Container(
-                  decoration: BoxDecoration(
-                            color: Colors.grey[700],
-                            borderRadius: BorderRadius.circular(10)),
-                  width: MediaQuery.of(context).size.width * 0.2,
-                  child: IconButton(
-                onPressed: () async {_showAlertDialog(context);},
-                icon: Icon(FontAwesomeIcons.trashAlt,color: Colors.white,)),
-                alignment: Alignment.center,
-                ),]),
                 Padding(
-                    child: 
-                Text(
-                  widget.title,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize:25),
-                ),
-                padding: EdgeInsets.only(left: 5)),
-
+                    padding: EdgeInsets.only(top: 20, bottom: 20),
+                    child: Center(
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.red[700],
+                            borderRadius: BorderRadius.circular(10)),
+                        width: MediaQuery.of(context).size.width * 0.2,
+                        child: IconButton(
+                            onPressed: () async {
+                              _showAlertDialog(context);
+                            },
+                            icon: const Icon(
+                              FontAwesomeIcons.trashAlt,
+                              color: Colors.white,
+                            )),
+                        alignment: Alignment.center,
+                      ),
+                    )),
+                Padding(
+                    child: Text(
+                      widget.title,
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                    ),
+                    padding: EdgeInsets.only(left: 5)),
                 const Padding(padding: EdgeInsets.only(top: 10)),
                 Padding(
                   child: Text(
@@ -64,12 +70,13 @@ class _edititempagestate extends State<edititempage> {
                     style: const TextStyle(
                         fontWeight: FontWeight.bold, fontSize: 16),
                   ),
-                padding: EdgeInsets.only(left:10),),
+                  padding: EdgeInsets.only(left: 10),
+                ),
                 const Padding(padding: EdgeInsets.only(top: 10)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    Padding(padding: EdgeInsets.only(left:20)),
+                    Padding(padding: EdgeInsets.only(left: 20)),
                     Image.asset(
                       widget.image1,
                       width: 50,
@@ -85,7 +92,6 @@ class _edititempagestate extends State<edititempage> {
                   ],
                 ),
                 SizedBox(height: 20),
-                
                 Padding(
                     padding: EdgeInsets.fromLTRB(
                         MediaQuery.of(context).size.width * .1,
@@ -109,7 +115,7 @@ class _edititempagestate extends State<edititempage> {
                         1),
                     child: TextFormField(
                       maxLength: 100,
-                      maxLines: 15,
+                      maxLines: 10,
                       controller: notes,
                       decoration: const InputDecoration(
                         hintMaxLines: 15,
@@ -158,8 +164,7 @@ class _edititempagestate extends State<edititempage> {
             actions: [
               TextButton(
                   onPressed: () {
-                    DBHelper.dbHelper
-                        .deleteProduct(widget.barcode);
+                    DBHelper.dbHelper.deleteProduct(widget.barcode);
                     Navigator.pop(context);
                     Navigator.pop(context);
                   },

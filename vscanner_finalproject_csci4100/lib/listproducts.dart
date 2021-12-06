@@ -5,7 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vscanner_finalproject_csci4100/db_helper.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'dart:convert';
-
+import 'localnotifcation.dart';
 import 'bottomappbar.dart';
 
 class productbuild extends StatefulWidget {
@@ -156,7 +156,6 @@ class _productbuildstate extends State<productbuild> {
                         ],
                       ),
                       onTap: () {
-                        print(products[index].notes);
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -208,7 +207,6 @@ class _productbuildstate extends State<productbuild> {
         await DBHelper.dbHelper.getAllProducts();
     setState(() {
       record.forEach((element) {
-        print(element);
         products.add(Product(
             barcode: element["barcode"],
             productName: element["name"],
@@ -238,10 +236,30 @@ String veganCheck(Product product) {
   }
 }
 
+String strVeganCheck(String vegan) {
+  if (vegan == "yes") {
+    return "images/vegan_icon_true.png";
+  } else if (vegan == "maybe") {
+    return "images/vegan_icon_maybe.png";
+  } else {
+    return "images/vegan_icon_false.png";
+  }
+}
+
 String vegetarianCheck(Product product) {
   if (product.vegetarian == "yes") {
     return "images/vegetarian_icon_true.png";
   } else if (product.vegetarian == "maybe-vegetarian") {
+    return "images/vegetarian_icon_maybe.png";
+  } else {
+    return "images/vegetarian_icon_false.png";
+  }
+}
+
+String strVegetarianCheck(String vegetarian) {
+  if (vegetarian == "yes") {
+    return "images/vegetarian_icon_true.png";
+  } else if (vegetarian == "maybe-vegetarian") {
     return "images/vegetarian_icon_maybe.png";
   } else {
     return "images/vegetarian_icon_false.png";

@@ -6,6 +6,7 @@ import 'package:vscanner_finalproject_csci4100/db_helper.dart';
 import 'dart:convert';
 import 'package:vscanner_finalproject_csci4100/bottomappbar.dart';
 import 'package:vscanner_finalproject_csci4100/edititempage.dart';
+import 'package:vscanner_finalproject_csci4100/listproducts.dart';
 
 class itempage extends StatefulWidget {
   const itempage(
@@ -40,12 +41,23 @@ class _itempagestate extends State<itempage> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-              Padding(child: IconButton(
-                onPressed: () async {_showAlertDialog(context);},
-                icon: Icon(FontAwesomeIcons.trashAlt)),
-                padding: EdgeInsets.only(left: 340,top:10),),
-
-            Padding(padding: EdgeInsets.fromLTRB(0, 10, 0, 0)),
+            Padding(
+                padding: EdgeInsets.only(top: 20, bottom: 20),
+                child: Center(
+                    child: Container(
+                  width: MediaQuery.of(context).size.width * 0.2,
+                  decoration: BoxDecoration(
+                      color: Colors.red[700],
+                      borderRadius: BorderRadius.circular(10)),
+                  child: IconButton(
+                      onPressed: () async {
+                        _showAlertDialog(context);
+                      },
+                      icon: const Icon(
+                        FontAwesomeIcons.trashAlt,
+                        color: Colors.white,
+                      )),
+                ))),
             Center(
                 child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
@@ -97,24 +109,26 @@ class _itempagestate extends State<itempage> {
                           fontWeight: FontWeight.bold, fontSize: 16),
                     ),
                     SizedBox(height: 20),
-                    Row(children: [const Text(
-                      "Notes",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                    ),
-                    IconButton(
-                    onPressed: () {
-                      Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => edititempage(
-                              title: widget.title,
-                              image1: widget.image1,
-                              image2: widget.image2,
-                              mapImage: widget.mapImage,
-                              barcode: widget.barcode)));
-                    },
-                    icon: Icon(FontAwesomeIcons.edit))
+                    Row(children: [
+                      const Text(
+                        "Notes",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 16),
+                      ),
+                      IconButton(
+                          onPressed: () {
+                            print('hello!');
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => edititempage(
+                                        title: widget.title,
+                                        image1: widget.image1,
+                                        image2: widget.image2,
+                                        mapImage: widget.mapImage,
+                                        barcode: widget.barcode)));
+                          },
+                          icon: Icon(FontAwesomeIcons.edit))
                     ])
                   ],
                 )),
@@ -146,7 +160,6 @@ class _itempagestate extends State<itempage> {
                             borderRadius: BorderRadius.circular(3))),
                   ),
                 )),
-
           ])),
       bottomNavigationBar: const BottomAppBarWidget(),
     );
@@ -162,10 +175,13 @@ class _itempagestate extends State<itempage> {
             actions: [
               TextButton(
                   onPressed: () {
-                    DBHelper.dbHelper
-                        .deleteProduct(widget.barcode);
+                    DBHelper.dbHelper.deleteProduct(widget.barcode);
                     Navigator.pop(context);
-                    Navigator.pop(context);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => productbuild(),
+                        ));
                   },
                   child: Text("Delete")),
               TextButton(

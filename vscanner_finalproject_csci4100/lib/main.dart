@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:vscanner_finalproject_csci4100/itempage.dart';
 import 'listproducts.dart';
 import 'product.dart';
 import 'package:http/http.dart' as http;
@@ -12,6 +13,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vscanner_finalproject_csci4100/bottomappbar.dart';
+import 'package:vscanner_finalproject_csci4100/information.dart';
+import 'package:vscanner_finalproject_csci4100/listproducts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -82,25 +85,6 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      /* floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Container(
-          height: 80,
-          width: 80,
-          child: FloatingActionButton(
-            backgroundColor: Colors.grey[700],
-            onPressed: () async {
-              var barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-                  "#228B22", "Cancel", true, ScanMode.BARCODE);
-              getProductInformation(barcodeScanRes);
-
-              setState(() {});
-            },
-            child: const Icon(
-              FontAwesomeIcons.barcode,
-              size: 35,
-            ),
-            elevation: 5.0,
-          )), */
       bottomNavigationBar: const BottomAppBarWidget(),
     );
   }

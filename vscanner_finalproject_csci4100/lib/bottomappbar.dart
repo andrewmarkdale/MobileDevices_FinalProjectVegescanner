@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:vscanner_finalproject_csci4100/newitempage.dart';
 import 'listproducts.dart';
+import 'localnotifcation.dart';
 import 'product.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -33,13 +34,6 @@ class _BottomAppBarWidgetState extends State<BottomAppBarWidget> {
           children: <Widget>[
             IconButton(
                 onPressed: () async {
-                  //Position position = await _determinePosition();
-                  //lat = position.latitude;
-                  //print(lat);
-                  //long = position.longitude;
-                  //print(long);
-                  //staticmaptoBase64(LatLng(lat, long));
-                  //Navigator.pop(context);
                   Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -209,8 +203,8 @@ class _BottomAppBarWidgetState extends State<BottomAppBarWidget> {
                       MaterialPageRoute(
                           builder: (context) => newitempage(
                               title: product.productName,
-                              image1: veganCheck(product),
-                              image2: vegetarianCheck(product),
+                              image1: product.vegan,
+                              image2: product.vegetarian,
                               mapImage: product.imgB64 ?? "",
                               barcode: product.barcode)));
                 }

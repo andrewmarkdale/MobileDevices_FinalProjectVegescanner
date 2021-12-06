@@ -19,7 +19,7 @@ dependencies:
   geolocator: ^7.7.1
   geocoding:
   flutter_map:
-
+  flutter_local_notifications:
 
   cupertino_icons: ^1.0.2
 
@@ -58,5 +58,6 @@ flutter:
     - images/no_image.jpg
     - images/vegescanner_homescreen_splash.png
     - images/openfoodfacts.png
+    - images/duplicatebarcode.png
   uses-material-design: true
 
