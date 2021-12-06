@@ -27,13 +27,14 @@ class _productbuildstate extends State<productbuild> {
     setState(() {});
     getAllProducts();
   }
-
+//a list to store products
   List<Product> products = [];
   List<Product> productCopy = [];
   TextEditingController searchController = TextEditingController();
   bool searchSwitch = false;
   @override
   Widget build(BuildContext context) {
+    //clear input in search 
     if (searchSwitch == false) {
       setState(() {
         products.clear();
@@ -49,6 +50,7 @@ class _productbuildstate extends State<productbuild> {
         centerTitle: searchSwitch ? false : true,
         title: searchSwitch
             ? TextField(
+              //decorate input for the search bar at the top
                 decoration: InputDecoration(
                     isDense: true,
                     filled: true,
@@ -67,7 +69,7 @@ class _productbuildstate extends State<productbuild> {
                   filterSearchResults(value);
                 },
                 controller: searchController,
-              )
+              )// include image besides search icon
             : Image.asset(
                 'images/vegescannerlong.png',
                 fit: BoxFit.contain,
@@ -76,6 +78,7 @@ class _productbuildstate extends State<productbuild> {
         actions: <Widget>[
           Padding(
             padding: const EdgeInsets.only(right: 20.0),
+            //see if search switch is tapped and rebuild widget 
             child: GestureDetector(
               onTap: () {
                 setState(
@@ -95,14 +98,17 @@ class _productbuildstate extends State<productbuild> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Expanded(
+            //create a list view builder for products
             child: ListView.builder(
                 padding: EdgeInsets.only(
                     bottom: MediaQuery.of(context).size.height / 7),
                 itemCount: products.length,
                 itemBuilder: (BuildContext context, int index) {
+                  //have the list tiles inside a container that have grey shadows and circular edges 
                   return Container(
                     width: 100,
                     height: 90,
+                    
                     decoration: BoxDecoration(
                         color: Colors.white,
                         border: Border.all(color: Colors.green, width: 3),
@@ -132,8 +138,10 @@ class _productbuildstate extends State<productbuild> {
                                       fit: BoxFit.fill,
                                     )
                                   : Image.memory(
+                                    //fetch the maps
                                       base64Decode(products[index].imgB64),
                                       fit: BoxFit.fill))),
+                      //display text on list tiles and include some properties to stop text overflow
                       title: Text(
                         products[index].productName,
                         style: const TextStyle(fontWeight: FontWeight.bold),
@@ -144,6 +152,7 @@ class _productbuildstate extends State<productbuild> {
                       subtitle: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
+                          //get the appropriate icons for vegan/vegetarian products
                           Image.asset(
                             veganCheck(products[index]),
                             width: 30,
@@ -160,6 +169,7 @@ class _productbuildstate extends State<productbuild> {
                         ],
                       ),
                       onTap: () {
+                        //pass product info to the item page
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -183,7 +193,7 @@ class _productbuildstate extends State<productbuild> {
   }
 
   // Using internet documentation we were able to determine how to search
-
+//filtering search results for the products
   void filterSearchResults(String query) {
     List<Product> searchList = <Product>[];
     List<Product> copyItems = products;
@@ -207,7 +217,7 @@ class _productbuildstate extends State<productbuild> {
       });
     }
   }
-
+//get all the necessary product information from the database such as barcode,name and their logos
   getAllProducts() async {
     List<Map<String, dynamic>> record =
         await DBHelper.dbHelper.getAllProducts();
