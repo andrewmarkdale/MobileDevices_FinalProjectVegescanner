@@ -15,6 +15,7 @@ class infopage extends StatelessWidget {
           title: const Text("Information page"),
           automaticallyImplyLeading: false,
         ),
+      //implment scroll for column widget
         body: SingleChildScrollView(
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -28,6 +29,7 @@ class infopage extends StatelessWidget {
               Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: Column(children: [
+                    //implementing a sequence of row widgets inside the column widget to display icons and text
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -37,6 +39,7 @@ class infopage extends StatelessWidget {
                         SizedBox(
                           width: MediaQuery.of(context).size.width / 25,
                         ),
+                        //using flex widget for multi-line descriptions
                         const Flexible(
                             child: Text(
                           "The green Vegan icon indicates that the food item contains no animal product",
