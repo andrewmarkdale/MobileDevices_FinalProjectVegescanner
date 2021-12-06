@@ -2,11 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:vscanner_finalproject_csci4100/db_helper.dart';
+import 'package:vscanner_finalproject_csci4100/model/db_helper.dart';
 import 'dart:convert';
-import 'package:vscanner_finalproject_csci4100/bottomappbar.dart';
-import 'package:vscanner_finalproject_csci4100/edititempage.dart';
-import 'package:vscanner_finalproject_csci4100/listproducts.dart';
+import 'package:vscanner_finalproject_csci4100/model/bottom_app_bar.dart';
+import 'package:vscanner_finalproject_csci4100/pages/edit_item_page.dart';
+import 'package:vscanner_finalproject_csci4100/pages/list_products_page.dart';
 
 class itempage extends StatefulWidget {
   const itempage(
@@ -95,7 +95,6 @@ class _itempagestate extends State<itempage> {
                   width: 50,
                   height: 50,
                 ),
-                //SizedBox(height: 100,),
               ],
             ),
             Padding(
@@ -151,7 +150,7 @@ class _itempagestate extends State<itempage> {
                             color: Colors.grey.withOpacity(0.5),
                             spreadRadius: 5,
                             blurRadius: 7,
-                            offset: Offset(0, 3), // changes position of shadow
+                            offset: Offset(0, 3),
                           ),
                         ],
                       ),

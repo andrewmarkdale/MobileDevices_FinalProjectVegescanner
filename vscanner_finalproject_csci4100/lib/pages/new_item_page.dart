@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:vscanner_finalproject_csci4100/db_helper.dart';
+import 'package:vscanner_finalproject_csci4100/model/db_helper.dart';
 import 'dart:convert';
-import 'package:vscanner_finalproject_csci4100/bottomappbar.dart';
-import 'package:vscanner_finalproject_csci4100/localnotifcation.dart';
+import 'package:vscanner_finalproject_csci4100/model/bottom_app_bar.dart';
+import 'package:vscanner_finalproject_csci4100/model/local_notifcation.dart';
 import 'package:vscanner_finalproject_csci4100/main.dart';
-import 'package:vscanner_finalproject_csci4100/product.dart';
+import 'package:vscanner_finalproject_csci4100/model/product.dart';
+import 'package:vscanner_finalproject_csci4100/model/vege_check_functions.dart';
 
-import 'listproducts.dart';
+import 'list_products_page.dart';
 
 class newitempage extends StatefulWidget {
   const newitempage(
@@ -203,16 +204,14 @@ class _newitempagestate extends State<newitempage> {
                                   "imgb64": widget.mapImage,
                                   "notes": notes.text,
                                 });
-                                SimpleNotification(context)
-                                    .showNotification(true);
+                                DBNotification(context).showNotification(true);
                                 Navigator.pop(context);
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => productbuild()));
                               } catch (e) {
-                                SimpleNotification(context)
-                                    .showNotification(false);
+                                DBNotification(context).showNotification(false);
                                 Navigator.pop(context);
                                 Navigator.push(
                                     context,

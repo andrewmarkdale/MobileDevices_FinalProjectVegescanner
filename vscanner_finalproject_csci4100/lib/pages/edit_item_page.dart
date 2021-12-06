@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:vscanner_finalproject_csci4100/db_helper.dart';
+import 'package:vscanner_finalproject_csci4100/model/db_helper.dart';
 import 'dart:convert';
-import 'package:vscanner_finalproject_csci4100/bottomappbar.dart';
+import 'package:vscanner_finalproject_csci4100/model/bottom_app_bar.dart';
+import 'package:vscanner_finalproject_csci4100/pages/item_page.dart';
 
-import 'listproducts.dart';
+import 'list_products_page.dart';
 
 class edititempage extends StatefulWidget {
   const edititempage(
@@ -31,7 +32,6 @@ class _edititempagestate extends State<edititempage> {
 
   @override
   Widget build(BuildContext context) {
-    notes.text = widget.notes;
     return GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: Scaffold(
@@ -137,7 +137,6 @@ class _edititempagestate extends State<edititempage> {
                         width: MediaQuery.of(context).size.width * 0.5,
                         child: TextButton(
                             onPressed: () async {
-                              print(notes.text);
                               int result =
                                   await DBHelper.dbHelper.updateProduct({
                                 "name": widget.title,
@@ -149,6 +148,16 @@ class _edititempagestate extends State<edititempage> {
                               });
                               print(result);
                               Navigator.pop(context);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => itempage(
+                                          title: widget.title,
+                                          image1: widget.image1,
+                                          image2: widget.image2,
+                                          mapImage: widget.mapImage,
+                                          barcode: widget.barcode,
+                                          notes: notes.text)));
                             },
                             child: const Text(
                               "Save Notes",

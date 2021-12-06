@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:vscanner_finalproject_csci4100/bottomappbar.dart';
-import 'listproducts.dart';
-import 'bottomappbar.dart';
+import 'package:vscanner_finalproject_csci4100/model/bottom_app_bar.dart';
+import 'list_products_page.dart';
+import '../model/bottom_app_bar.dart';
 
 class infopage extends StatelessWidget {
   const infopage({Key? key}) : super(key: key);

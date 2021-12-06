@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:vscanner_finalproject_csci4100/product.dart';
-import 'package:vscanner_finalproject_csci4100/itempage.dart';
+import 'package:vscanner_finalproject_csci4100/model/product.dart';
+import 'package:vscanner_finalproject_csci4100/pages/item_page.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:vscanner_finalproject_csci4100/db_helper.dart';
+import 'package:vscanner_finalproject_csci4100/model/db_helper.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:vscanner_finalproject_csci4100/model/vege_check_functions.dart';
 import 'dart:convert';
-import 'localnotifcation.dart';
-import 'bottomappbar.dart';
+import '../model/local_notifcation.dart';
+import '../model/bottom_app_bar.dart';
 
 class productbuild extends StatefulWidget {
   const productbuild({
@@ -181,6 +182,8 @@ class _productbuildstate extends State<productbuild> {
     );
   }
 
+  // Using internet documentation we were able to determine how to search
+
   void filterSearchResults(String query) {
     List<Product> searchList = <Product>[];
     List<Product> copyItems = products;
@@ -226,53 +229,5 @@ class _productbuildstate extends State<productbuild> {
             notes: element["notes"]));
       });
     });
-  }
-}
-
-String veganCheck(Product product) {
-  if (product.vegan == "yes") {
-    return "images/vegan_icon_true.png";
-  } else if (product.vegan == "maybe-vegan") {
-    return "images/vegan_icon_maybe.png";
-  } else if (product.vegan == "non-vegan") {
-    return "images/vegan_icon_false.png";
-  } else {
-    return "images/vegan_icon_false.png";
-  }
-}
-
-String strVeganCheck(String vegan) {
-  if (vegan == "yes") {
-    return "images/vegan_icon_true.png";
-  } else if (vegan == "maybe-vegan") {
-    return "images/vegan_icon_maybe.png";
-  } else if (vegan == "non-vegan") {
-    return "images/vegan_icon_false.png";
-  } else {
-    return "images/vegan_icon_false_unknown.png";
-  }
-}
-
-String vegetarianCheck(Product product) {
-  if (product.vegetarian == "yes") {
-    return "images/vegetarian_icon_true.png";
-  } else if (product.vegetarian == "maybe-vegetarian") {
-    return "images/vegetarian_icon_maybe.png";
-  } else if (product.vegetarian == "non-vegetarian") {
-    return "images/vegetarian_icon_false.png";
-  } else {
-    return "images/vegetarian_icon_unknown.png";
-  }
-}
-
-String strVegetarianCheck(String vegetarian) {
-  if (vegetarian == "yes") {
-    return "images/vegetarian_icon_true.png";
-  } else if (vegetarian == "maybe-vegetarian") {
-    return "images/vegetarian_icon_maybe.png";
-  } else if (vegetarian == "non-vegetarian") {
-    return "images/vegetarian_icon_false.png";
-  } else {
-    return "images/vegetarian_icon_false.png";
   }
 }

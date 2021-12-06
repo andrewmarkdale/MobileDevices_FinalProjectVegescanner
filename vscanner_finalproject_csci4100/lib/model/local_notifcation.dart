@@ -1,11 +1,11 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter/material.dart';
 
-class SimpleNotification {
+class DBNotification {
   BuildContext context;
   late FlutterLocalNotificationsPlugin notification;
 
-  SimpleNotification(this.context) {
+  DBNotification(this.context) {
     initNotification();
   }
 

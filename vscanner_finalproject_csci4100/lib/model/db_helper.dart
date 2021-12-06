@@ -44,11 +44,13 @@ class DBHelper {
 
   Future<int> updateProduct(Map<String, dynamic> row) async {
     Database db = await database;
-    return db.update("Products", row, where: "barcode=?", whereArgs: [row['barcode']]);
+    return db.update("Products", row,
+        where: "barcode=?", whereArgs: [row['barcode']]);
   }
 
   Future<int> deleteProduct(String barcode) async {
     Database db = await database;
-    return await db.delete("Products", where: "barcode=?", whereArgs: [barcode]);
+    return await db
+        .delete("Products", where: "barcode=?", whereArgs: [barcode]);
   }
 }

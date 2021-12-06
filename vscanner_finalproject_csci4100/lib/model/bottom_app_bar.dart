@@ -3,10 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:vscanner_finalproject_csci4100/main.dart';
-import 'package:vscanner_finalproject_csci4100/newitempage.dart';
-import 'information.dart';
-import 'listproducts.dart';
-import 'localnotifcation.dart';
+import 'package:vscanner_finalproject_csci4100/pages/new_item_page.dart';
+import '../pages/information_page.dart';
+import '../pages/list_products_page.dart';
+import 'local_notifcation.dart';
 import 'product.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -178,54 +178,51 @@ class _BottomAppBarWidgetState extends State<BottomAppBarWidget> {
   }
 }
 
+// Geolocation/Geocoding based on online documentation and lecture code.
+// Needed to error handle to ensure users could still use app.
 Future<Position> _determinePosition() async {
-  bool serviceEnabled;
+  bool isServiceEnabled;
   LocationPermission permission;
 
-  // Test if location services are enabled.
-  serviceEnabled = await Geolocator.isLocationServiceEnabled();
-  if (!serviceEnabled) {
-    // Location services are not enabled don't continue
-    // accessing the position and request users of the
-    // App to enable the location services.
+  // Checking if location services are enabled
+  isServiceEnabled = await Geolocator.isLocationServiceEnabled();
+  if (!isServiceEnabled) {
     return Future.error('Location services are disabled.');
   }
 
+  // If services are enabled, checking permission.
   permission = await Geolocator.checkPermission();
   if (permission == LocationPermission.denied) {
     permission = await Geolocator.requestPermission();
     if (permission == LocationPermission.denied) {
-      // Permissions are denied, next time you could try
-      // requesting permissions again (this is also where
-      // Android's shouldShowRequestPermissionRationale
-      // returned true. According to Android guidelines
-      // your App should show an explanatory UI now.
       return Future.error('Location permissions are denied');
     }
   }
 
+  // If permission has been denied forever, return error.
   if (permission == LocationPermission.deniedForever) {
-    // Permissions are denied forever, handle appropriately.
     return Future.error(
         'Location permissions are permanently denied, we cannot request permissions.');
   }
 
-  // When we reach here, permissions are granted and we can
-  // continue accessing the position of the device.
+  // Getting position.
   return await Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.high);
+      desiredAccuracy: LocationAccuracy.best);
 }
 
+// Converting image data gathered from mapbox api to b64 and stored in the db
+// which is then converted to an image when needed.
 Future<String> staticmaptoBase64(LatLng coordinates) async {
   var lat = coordinates.latitude.toString();
   var long = coordinates.longitude.toString();
-  print(lat);
-  print(long);
   final response = await http.get(Uri.parse(
       'https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/pin-s+ff0000($long,$lat)/$long,$lat,14.51,0/300x200?access_token=pk.eyJ1IjoiYW5kcmV3bWFya2RhbGUiLCJhIjoiY2t3a3hmaDZwMXdtMTJ0bm8xZHhhNG1jNSJ9.JtUGdsqShlhU8hJ6gtEpbw'));
   final bytes = response.bodyBytes;
   return base64Encode(bytes);
 }
+
+// Getting the product information from the Open Food Data API.
+// Uses scanned barcode.
 
 Future<dynamic> getProductInformation(String barcode) async {
   try {
