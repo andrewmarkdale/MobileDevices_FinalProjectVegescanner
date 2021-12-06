@@ -13,9 +13,9 @@ class SimpleNotification {
   initNotification() {
     notification = FlutterLocalNotificationsPlugin();
     AndroidInitializationSettings androidInitializationSettings =
-        AndroidInitializationSettings('@mipmap/vegescanner');
+        const AndroidInitializationSettings('@mipmap/vegescanner');
     IOSInitializationSettings iOSInitializationSettings =
-        IOSInitializationSettings();
+        const IOSInitializationSettings();
 
     InitializationSettings initializationSettings = InitializationSettings(
         android: androidInitializationSettings, iOS: iOSInitializationSettings);
@@ -27,7 +27,7 @@ class SimpleNotification {
   Future<String?> selectNotification(String? payload) async {
     await showDialog(
         context: context,
-        builder: (BuildContext context) => AlertDialog(
+        builder: (BuildContext context) => const AlertDialog(
               title: Text("Product saved"),
               content: Text("Your product was saved successfully."),
             ));

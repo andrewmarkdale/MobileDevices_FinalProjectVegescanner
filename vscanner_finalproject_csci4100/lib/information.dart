@@ -12,7 +12,7 @@ class infopage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Information page"),
+          title: const Text("Information page"),
           automaticallyImplyLeading: false,
         ),
         body: SingleChildScrollView(

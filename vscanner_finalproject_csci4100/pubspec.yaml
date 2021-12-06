@@ -59,5 +59,6 @@ flutter:
     - images/vegescanner_homescreen_splash.png
     - images/openfoodfacts.png
     - images/duplicatebarcode.png
+    - images/deletebarcode.png
   uses-material-design: true
 

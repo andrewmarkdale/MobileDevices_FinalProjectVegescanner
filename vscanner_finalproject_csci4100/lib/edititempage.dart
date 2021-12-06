@@ -4,6 +4,8 @@ import 'package:vscanner_finalproject_csci4100/db_helper.dart';
 import 'dart:convert';
 import 'package:vscanner_finalproject_csci4100/bottomappbar.dart';
 
+import 'listproducts.dart';
+
 class edititempage extends StatefulWidget {
   const edititempage(
       {Key? key,
@@ -159,21 +161,42 @@ class _edititempagestate extends State<edititempage> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text("Delete product?"),
-            content: Text("This action cannot be undone"),
-            actions: [
+            backgroundColor: Colors.green,
+            title: Image.asset('images/deletebarcode.png',
+                height: MediaQuery.of(context).size.width * 0.5,
+                width: MediaQuery.of(context).size.width * 0.75),
+            content: const Text(
+              "Delete product?\nThis cannot be undone.",
+              style:
+                  TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+              textAlign: TextAlign.center,
+            ),
+            actions: <Widget>[
               TextButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.white),
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text(
+                    "Cancel",
+                  )),
+              TextButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.red),
+                  ),
                   onPressed: () {
                     DBHelper.dbHelper.deleteProduct(widget.barcode);
                     Navigator.pop(context);
-                    Navigator.pop(context);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => productbuild(),
+                        ));
                   },
-                  child: Text("Delete")),
-              TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: Text("Cancel"))
+                  child: const Text("Delete",
+                      style: TextStyle(color: Colors.white))),
             ],
           );
         });

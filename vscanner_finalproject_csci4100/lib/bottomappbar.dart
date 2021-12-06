@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:vscanner_finalproject_csci4100/main.dart';
 import 'package:vscanner_finalproject_csci4100/newitempage.dart';
 import 'listproducts.dart';
 import 'localnotifcation.dart';
@@ -57,8 +58,14 @@ class _BottomAppBarWidgetState extends State<BottomAppBarWidget> {
                         var barcodeScanRes =
                             await FlutterBarcodeScanner.scanBarcode(
                                 "#228B22", "Cancel", true, ScanMode.BARCODE);
+                        if (barcodeScanRes == "-1") {
+                          Navigator.pop(context);
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => MyApp()));
+                        }
                         var product =
                             await getProductInformation(barcodeScanRes);
+
                         if (product == false) {
                           return showDialog(
                               context: context,
@@ -101,14 +108,23 @@ class _BottomAppBarWidgetState extends State<BottomAppBarWidget> {
                           Position position = await _determinePosition();
                           final image = await staticmaptoBase64(
                               LatLng(position.latitude, position.longitude));
-                          int result = await DBHelper.dbHelper.insertProduct({
-                            "name": product.productName,
-                            "barcode": product.barcode,
-                            "vegan": product.vegan,
-                            "vegetarian": product.vegetarian,
-                            "imgb64": image,
-                          });
-                          print(result);
+                          //int result = await DBHelper.dbHelper.insertProduct({
+                          //  "name": product.productName,
+                          //  "barcode": product.barcode,
+                          //  "vegan": product.vegan,
+                          //  "vegetarian": product.vegetarian,
+                          //  "imgb64": image,
+                          //});
+                          product.imgB64 = image;
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => newitempage(
+                                      title: product.productName,
+                                      image1: product.vegan,
+                                      image2: product.vegetarian,
+                                      mapImage: product.imgB64 ?? "",
+                                      barcode: product.barcode)));
                         }
                         if (product == "Error") {
                           return showDialog(
@@ -148,102 +164,12 @@ class _BottomAppBarWidgetState extends State<BottomAppBarWidget> {
                                     ]);
                               });
                         }
+
+                        setState(() {});
                       },
                     ))),
             IconButton(
-              onPressed: () async {
-                var product = await getProductInformation('3041090063206');
-                if (product == false) {
-                  return showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                            backgroundColor: Colors.green,
-                            shape: const RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
-                            title: Image.asset(
-                              'images/barcode_not_found.png',
-                              height: MediaQuery.of(context).size.width * 0.5,
-                              width: MediaQuery.of(context).size.width * 0.75,
-                            ),
-                            content: const Text(
-                              "Barcode not found.\n\nIf it is a food item, please consider adding it to Open Food Facts.",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                              textAlign: TextAlign.center,
-                            ),
-                            actions: <Widget>[
-                              TextButton(
-                                style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all(
-                                        Colors.white)),
-                                onPressed: () => Navigator.pop(context),
-                                child: const Text("OK",
-                                    style: TextStyle(color: Colors.green)),
-                              )
-                            ]);
-                      });
-                }
-                if (product is Product) {
-                  Position position = await _determinePosition();
-                  final image = await staticmaptoBase64(
-                      LatLng(position.latitude, position.longitude));
-                  //int result = await DBHelper.dbHelper.insertProduct({
-                  //  "name": product.productName,
-                  //  "barcode": product.barcode,
-                  //  "vegan": product.vegan,
-                  //  "vegetarian": product.vegetarian,
-                  //  "imgb64": image,
-                  //});
-                  product.imgB64 = image;
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => newitempage(
-                              title: product.productName,
-                              image1: product.vegan,
-                              image2: product.vegetarian,
-                              mapImage: product.imgB64 ?? "",
-                              barcode: product.barcode)));
-                }
-                if (product == "Error") {
-                  return showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                            backgroundColor: Colors.green,
-                            shape: const RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
-                            title: Image.asset(
-                              "images/error_barcode.png",
-                              height: MediaQuery.of(context).size.width * 0.5,
-                              width: MediaQuery.of(context).size.width * 0.75,
-                            ),
-                            content: const Text(
-                              "Error retrieving data. \nPlease try again later.",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                              textAlign: TextAlign.center,
-                            ),
-                            actions: <Widget>[
-                              TextButton(
-                                style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all(
-                                        Colors.white)),
-                                onPressed: () => Navigator.pop(context),
-                                child: const Text("OK",
-                                    style: TextStyle(color: Colors.green)),
-                              )
-                            ]);
-                      });
-                }
-
-                setState(() {});
-              },
+              onPressed: () async {},
               icon: const Icon(FontAwesomeIcons.info, color: Colors.white),
             )
           ],

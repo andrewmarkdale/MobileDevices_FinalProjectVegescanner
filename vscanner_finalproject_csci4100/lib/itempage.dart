@@ -73,7 +73,7 @@ class _itempagestate extends State<itempage> {
                       fit: BoxFit.fill,
                     ),
             )),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Center(
@@ -170,10 +170,31 @@ class _itempagestate extends State<itempage> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text("Delete product?"),
-            content: Text("This action cannot be undone"),
-            actions: [
+            backgroundColor: Colors.green,
+            title: Image.asset('images/deletebarcode.png',
+                height: MediaQuery.of(context).size.width * 0.5,
+                width: MediaQuery.of(context).size.width * 0.75),
+            content: const Text(
+              "Delete product?\nThis cannot be undone.",
+              style:
+                  TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+              textAlign: TextAlign.center,
+            ),
+            actions: <Widget>[
               TextButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.white),
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text(
+                    "Cancel",
+                  )),
+              TextButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.red),
+                  ),
                   onPressed: () {
                     DBHelper.dbHelper.deleteProduct(widget.barcode);
                     Navigator.pop(context);
@@ -183,12 +204,8 @@ class _itempagestate extends State<itempage> {
                           builder: (context) => productbuild(),
                         ));
                   },
-                  child: Text("Delete")),
-              TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: Text("Cancel"))
+                  child: const Text("Delete",
+                      style: TextStyle(color: Colors.white))),
             ],
           );
         });
