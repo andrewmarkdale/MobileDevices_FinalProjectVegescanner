@@ -42,7 +42,7 @@ class _itempagestate extends State<itempage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
             Padding(
-                padding: EdgeInsets.only(top: 20, bottom: 20),
+                padding: const EdgeInsets.only(top: 20, bottom: 20),
                 child: Center(
                     child: Container(
                   width: MediaQuery.of(context).size.width * 0.2,
@@ -79,7 +79,7 @@ class _itempagestate extends State<itempage> {
             Center(
                 child: Text(
               widget.title,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
             )),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -89,7 +89,7 @@ class _itempagestate extends State<itempage> {
                   width: 50,
                   height: 50,
                 ),
-                SizedBox(width: 50, height: 90),
+                const SizedBox(width: 50, height: 90),
                 Image.asset(
                   widget.image2,
                   width: 50,
@@ -98,7 +98,7 @@ class _itempagestate extends State<itempage> {
               ],
             ),
             Padding(
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -107,7 +107,7 @@ class _itempagestate extends State<itempage> {
                       style: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 16),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Row(children: [
                       const Text(
                         "Notes",
@@ -115,8 +115,8 @@ class _itempagestate extends State<itempage> {
                             fontWeight: FontWeight.bold, fontSize: 16),
                       ),
                       IconButton(
+                          padding: EdgeInsets.only(left: 10),
                           onPressed: () {
-                            print('hello!');
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -128,7 +128,7 @@ class _itempagestate extends State<itempage> {
                                         barcode: widget.barcode,
                                         notes: widget.notes)));
                           },
-                          icon: Icon(FontAwesomeIcons.edit))
+                          icon: const Icon(FontAwesomeIcons.edit))
                     ])
                   ],
                 )),
@@ -139,7 +139,7 @@ class _itempagestate extends State<itempage> {
                   child: ClipPath(
                     child: Container(
                       child: Text(widget.notes == ""
-                          ? 'Enter your notes'
+                          ? 'Click the edit icon above to add a note'
                           : widget.notes),
                       height: 140,
                       width: 500,

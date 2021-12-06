@@ -105,7 +105,7 @@ class _productbuildstate extends State<productbuild> {
                     height: 90,
                     decoration: BoxDecoration(
                         color: Colors.white,
-                        border: Border.all(color: Colors.grey, width: 3),
+                        border: Border.all(color: Colors.green, width: 3),
                         borderRadius: BorderRadius.circular(10),
                         boxShadow: const [
                           BoxShadow(

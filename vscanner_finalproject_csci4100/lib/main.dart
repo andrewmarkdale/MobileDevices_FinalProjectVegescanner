@@ -2,20 +2,38 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'package:vscanner_finalproject_csci4100/itempage.dart';
-import 'listproducts.dart';
-import 'product.dart';
+import 'package:vscanner_finalproject_csci4100/pages/item_page.dart';
+import 'pages/list_products_page.dart';
+import 'model/product.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:io';
-import 'db_helper.dart';
+import 'model/db_helper.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:vscanner_finalproject_csci4100/bottomappbar.dart';
-import 'package:vscanner_finalproject_csci4100/information.dart';
-import 'package:vscanner_finalproject_csci4100/listproducts.dart';
+import 'package:vscanner_finalproject_csci4100/model/bottom_app_bar.dart';
+import 'package:vscanner_finalproject_csci4100/pages/information_page.dart';
+import 'package:vscanner_finalproject_csci4100/pages/list_products_page.dart';
 
+/*
+
+
+Andrew Mark Dale
+Cheyenne Carrier
+Deval Rajgor
+
+CSCI4100U Final Project: VegeScanner
+
+Scan items, determine if they're vegan/vegetarian and you can save a map image of
+where they were purchased. You can also save notes. All of this data is stored
+locally in an sqflite db.
+
+Images are converted to b64 and then read in from memory.
+
+
+
+*/
 void main() {
   runApp(const MyApp());
 }
