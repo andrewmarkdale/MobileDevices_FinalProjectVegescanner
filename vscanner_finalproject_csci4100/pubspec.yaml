@@ -60,5 +60,7 @@ flutter:
     - images/openfoodfacts.png
     - images/duplicatebarcode.png
     - images/deletebarcode.png
+    - images/vegetarian_icon_unknown.png
+    - images/vegan_icon_false_unknown.png
   uses-material-design: true
 

@@ -232,8 +232,10 @@ class _productbuildstate extends State<productbuild> {
 String veganCheck(Product product) {
   if (product.vegan == "yes") {
     return "images/vegan_icon_true.png";
-  } else if (product.vegan == "maybe") {
+  } else if (product.vegan == "maybe-vegan") {
     return "images/vegan_icon_maybe.png";
+  } else if (product.vegan == "non-vegan") {
+    return "images/vegan_icon_false.png";
   } else {
     return "images/vegan_icon_false.png";
   }
@@ -242,10 +244,12 @@ String veganCheck(Product product) {
 String strVeganCheck(String vegan) {
   if (vegan == "yes") {
     return "images/vegan_icon_true.png";
-  } else if (vegan == "maybe") {
+  } else if (vegan == "maybe-vegan") {
     return "images/vegan_icon_maybe.png";
-  } else {
+  } else if (vegan == "non-vegan") {
     return "images/vegan_icon_false.png";
+  } else {
+    return "images/vegan_icon_false_unknown.png";
   }
 }
 
@@ -254,8 +258,10 @@ String vegetarianCheck(Product product) {
     return "images/vegetarian_icon_true.png";
   } else if (product.vegetarian == "maybe-vegetarian") {
     return "images/vegetarian_icon_maybe.png";
-  } else {
+  } else if (product.vegetarian == "non-vegetarian") {
     return "images/vegetarian_icon_false.png";
+  } else {
+    return "images/vegetarian_icon_unknown.png";
   }
 }
 
@@ -264,6 +270,8 @@ String strVegetarianCheck(String vegetarian) {
     return "images/vegetarian_icon_true.png";
   } else if (vegetarian == "maybe-vegetarian") {
     return "images/vegetarian_icon_maybe.png";
+  } else if (vegetarian == "non-vegetarian") {
+    return "images/vegetarian_icon_false.png";
   } else {
     return "images/vegetarian_icon_false.png";
   }

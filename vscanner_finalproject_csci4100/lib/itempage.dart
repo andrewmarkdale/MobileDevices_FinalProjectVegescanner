@@ -126,7 +126,8 @@ class _itempagestate extends State<itempage> {
                                         image1: widget.image1,
                                         image2: widget.image2,
                                         mapImage: widget.mapImage,
-                                        barcode: widget.barcode)));
+                                        barcode: widget.barcode,
+                                        notes: widget.notes)));
                           },
                           icon: Icon(FontAwesomeIcons.edit))
                     ])

@@ -13,21 +13,25 @@ class edititempage extends StatefulWidget {
       required this.image1,
       required this.image2,
       required this.mapImage,
-      required this.barcode})
+      required this.barcode,
+      required this.notes})
       : super(key: key);
   final String title;
   final String image1;
   final String image2;
   final String barcode;
   final String mapImage;
+  final String notes;
   @override
   State<StatefulWidget> createState() => _edititempagestate();
 }
 
 class _edititempagestate extends State<edititempage> {
   TextEditingController notes = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    notes.text = widget.notes;
     return GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: Scaffold(

@@ -39,7 +39,7 @@ class infopage extends StatelessWidget {
                         ),
                         const Flexible(
                             child: Text(
-                          "The green vegan icon indicates that the food item contains no animal product ",
+                          "The green Vegan icon indicates that the food item contains no animal product",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 14),
                         ))
@@ -55,7 +55,7 @@ class infopage extends StatelessWidget {
                         ),
                         const Flexible(
                             child: Text(
-                          "The green vegetarian icon indicates that the food adheres to a vegetarians dietary standards ",
+                          "The green Vegetarian icon indicates that the food adheres to a vegetarians dietary standards",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 14),
                         ))
@@ -71,7 +71,7 @@ class infopage extends StatelessWidget {
                         ),
                         const Flexible(
                             child: Text(
-                          "The red vegan icon indicates that the food item may contain animal products -- certain food additives may or may not be vegan. Proceed with caution ",
+                          "The red Vegan icon indicates that the food item may contain animal products -- certain food additives may or may not be Vegan. Proceed with caution",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 14),
                         ))
@@ -87,7 +87,7 @@ class infopage extends StatelessWidget {
                         ),
                         const Flexible(
                             child: Text(
-                          "The red vegatarian icon indicates that the food item may contain animal products -- certain food additives may or may not be vegatarian. Proceed with caution ",
+                          "The red Vegatarian icon indicates that the food item may contain animal products -- certain food additives may or may not be Vegatarian. Proceed with caution",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 14),
                         ))
@@ -103,7 +103,7 @@ class infopage extends StatelessWidget {
                         ),
                         const Flexible(
                             child: Text(
-                          "The grey vegan icon indicates that the food item contains animal products and therefore not suitable for vegans ",
+                          "The black Vegan icon with an X indicates that the food item contains animal products and therefore not suitable for Vegans",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 14),
                         ))
@@ -119,7 +119,39 @@ class infopage extends StatelessWidget {
                         ),
                         const Flexible(
                             child: Text(
-                          "The grey vegatarian icon indicates that the food item contains animal products and therefore not suitable for vegetarians ",
+                          "The black Vegatarian icon with two Xs indicates that the food item contains animal products and therefore not suitable for Vegetarians ",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 14),
+                        ))
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Image.asset('images/vegan_icon_false_unknown.png',
+                            width: MediaQuery.of(context).size.width / 9,
+                            height: MediaQuery.of(context).size.height / 9),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width / 25,
+                        ),
+                        const Flexible(
+                            child: Text(
+                          "Not enough information is available for this product to determine if it is Vegan -- proceed with caution.",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 14),
+                        ))
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Image.asset('images/vegetarian_icon_unknown.png',
+                            width: MediaQuery.of(context).size.width / 9,
+                            height: MediaQuery.of(context).size.height / 9),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width / 25,
+                        ),
+                        const Flexible(
+                            child: Text(
+                          "Not enough information is available for this product to determine if it is Vegetarian -- proceed with caution.",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 14),
                         ))
