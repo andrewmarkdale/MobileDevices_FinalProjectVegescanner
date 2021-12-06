@@ -3,10 +3,7 @@ import 'package:path/path.dart';
 
 /*
 
-Andrew Mark Dale
-CSCI4100U
-Mobile Development
-
+Vegescanner DB
 Basic DBHelper based on the example given in class
 
 */

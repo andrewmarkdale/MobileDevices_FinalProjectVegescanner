@@ -242,11 +242,15 @@ Future<dynamic> getProductInformation(String barcode) async {
     Uri uri =
         Uri.https('world.openfoodfacts.org', '/api/v0/product/[$barcode].json');
 
+    // HTTP GET headers
     Map<String, String> headers = {
       HttpHeaders.userAgentHeader: 'VegeScanner - Android - Version 1.0'
     };
+
     final response = await http.get(uri, headers: headers);
     var responseData = jsonDecode(response.body);
+
+    // Product not found
     if (responseData['status'] == 0) {
       return false;
     }
@@ -269,10 +273,6 @@ Future<dynamic> getProductInformation(String barcode) async {
         food.vegetarian = vegetarianStatus.split(":")[1];
       }
     }
-    print(food.barcode);
-    print(food.productName);
-    print(food.vegan);
-    print(food.vegetarian);
 
     return food;
   } catch (e) {

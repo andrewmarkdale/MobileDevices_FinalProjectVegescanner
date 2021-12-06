@@ -1,6 +1,8 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter/material.dart';
 
+// Notifies user on insert product status
+// Based on the example given in class.
 class DBNotification {
   BuildContext context;
   late FlutterLocalNotificationsPlugin notification;
